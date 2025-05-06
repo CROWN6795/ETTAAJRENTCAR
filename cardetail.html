@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Details - ETTAAJ LUXURY RENTAL</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="img/logo Ettaj.jpg" alt="ETTAAJ RENTAL Logo" class="logo-image">
+                <h1>ETTAAJ LUXURY RENTAL</h1>
+            </div>
+            <div class="header-controls">
+                <div class="currency-selector">
+                    <select id="currency">
+                        <option value="MAD">MAD</option>
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                    </select>
+                </div>
+                <div class="language-selector">
+                    <select id="language">
+                        <option value="en">EN</option>
+                        <option value="fr">FR</option>
+                        <option value="ar">AR</option>
+                        <option value="es">ES</option>
+                    </select>
+                </div>
+                <a href="index.html" class="back-button">Back</a>
+            </div>
+            <div class="section_pages">
+                <a href="index.html#home" data-translate="home">Home</a>
+                <a href="index.html#services" data-translate="services">Services</a>
+                <a href="index.html#about" data-translate="about">About</a>
+                <a href="index.html#contact" data-translate="contact">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="car-detail-main">
+        <section class="car-detail-section">
+            <div class="car-detail-container">
+                <div class="car-gallery">
+                    <div class="main-image">
+                        <img id="main-car-image" src="" alt="Car Image" class="car-detail-image">
+                    </div>
+                    
+                </div>
+                <div class="car-info">
+                    <h1 id="car-name">Car Name</h1>
+                    <p class="car-year" id="car-year-main">2025</p>
+                    <p class="price" id="car-price">Price/day</p>
+                    <div class="car-features">
+                        <div class="feature">
+                            <i class="fas fa-car"></i>
+                            <span id="car-type">City Car</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-gas-pump"></i>
+                            <span id="car-fuel">Petrol</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-cogs"></i>
+                            <span id="car-transmission">Automatic</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span id="car-year-feature">2025</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-users"></i>
+                            <span id="car-seats">4 Seats</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span id="car-power">70 HP</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="booking-section">
+            <div class="booking-container">
+                <h2>Book This Car</h2>
+                <form id="booking-form" class="booking-form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pickup-date">Pickup Date</label>
+                        <input type="date" id="pickup-date" name="pickup-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pickup-location">Pickup Location</label>
+                        <select id="pickup-location" name="pickup-location" required>
+                            <option value="marrakech-airport">Marrakech Airport</option>
+                            <option value="marrakech-city">Marrakech City Center</option>
+                            <option value="agadir-airport">Agadir Airport</option>
+                            <option value="agadir-city">Agadir City Center</option>
+                            <option value="casablanca-airport">Casablanca Airport</option>
+                            <option value="casablanca-city">Casablanca City Center</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="return-date">Return Date</label>
+                        <input type="date" id="return-date" name="return-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Additional Notes</label>
+                        <textarea id="message" name="message" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="book-btn">Send Booking Request</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="contact-us">
+                <h2>Contact Us</h2>
+                <div class="social-icons">
+                    <a href="https://instagram.com/ettaajrental" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/212653330752" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://snapchat.com/add/ettaajrental" target="_blank"><i class="fab fa-snapchat"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" title="Back to Top"><i class="fas fa-arrow-up"></i></button>
+    <script src="script.js"></script>
+    <script>
+        
+
+
+        // Get car details from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const carId = urlParams.get('car');
+
+        // Car data
+        const cars = {
+            'fiat-500': {
+                name: 'Fiat 500',
+                year: '2025',
+                price: '350',
+                type: 'City Car',
+                fuel: 'Petrol',
+                transmission: 'Automatic',
+                images: ['img/Fiat 500 2024.jpg']
+            },
+            'kia-picanto': {
+                name: 'Kia Picanto',
+                year: '2025',
+                price: '320',
+                type: 'City Car',
+                fuel: 'Petrol',
+                transmission: 'Automatic',
+                images: ['img/Kia Picanto 2024.jpg']
+            },
+            'dacia-logan': {
+                name: 'Dacia Logan',
+                year: '2025',
+                price: '300',
+                type: 'Sedan',
+                fuel: 'Petrol',
+                transmission: 'Manual',
+                images: ['img/Dacia Logan 2024.jpeg']
+            },
+            'dacia-sandero': {
+                name: 'Dacia Sandero',
+                year: '2025',
+                price: '350',
+                type: 'Hatchback',
+                fuel: 'Petrol',
+                transmission: 'Manual',
+                images: ['img/Dacia Sandero 2024.jpg']
+            },
+            'renault-clio': {
+                name: 'Renault Clio 5',
+                year: '2025',
+                price: '300',
+                type: 'Hatchback',
+                fuel: 'Petrol',
+                transmission: 'Automatic',
+                images: ['img/Renault Clio 5 2024.jpg']
+            },
+            'range-rover-sport': {
+                name: 'Range Rover Sport',
+                year: '2025',
+                price: '3000',
+                type: 'SUV',
+                fuel: 'Diesel',
+                transmission: 'Automatic',
+                images: ['img/Range Rover Sport 2024.jpg']
+            },
+            'range-rover-vogue': {
+                name: 'Range Rover Vogue',
+                year: '2025',
+                price: '6000',
+                type: 'SUV',
+                fuel: 'Diesel',
+                transmission: 'Automatic',
+                images: ['img/Range Rover Vogue 2024.jpg']
+            },
+            'porsche-macan': {
+                name: 'Porsche Macan T',
+                year: '2025',
+                price: '2200',
+                type: 'SUV',
+                fuel: 'Petrol',
+                transmission: 'Automatic',
+                images: ['img/Porsche Macan T.jpg']
+            },
+            'porsche-cayenne': {
+                name: 'Porsche Cayenne',
+                year: '2025',
+                price: '4300',
+                type: 'SUV',
+                fuel: 'Petrol',
+                transmission: 'Automatic',
+                images: ['img/Porsche Cayenne 2024.jpg']
+            },
+            'mercedes-g63': {
+                name: 'Mercedes G63',
+                year: '2025',
+                price: '13500',
+                type: 'SUV',
+                fuel: 'Petrol',
+                transmission: 'Automatic',
+                images: ['img/Mercedes G63.jpg']
+            },
+            'audi-q8': {
+                name: 'Audi Q8 S-Line',
+                year: '2025',
+                price: '2300',
+                type: 'SUV',
+                fuel: 'Diesel',
+                transmission: 'Automatic',
+                images: ['img/Audi Q8 S-Line 2024.jpg']
+            },
+            'golf-8': {
+                name: 'Golf 8',
+                year: '2025',
+                price: '1000',
+                type: 'Hatchback',
+                fuel: 'Petrol',
+                transmission: 'Automatic',
+                images: ['img/Volkswagen Golf 8 2024.jpg']
+            },
+            'vw-troc': {
+                name: 'Volkswagen T-Roc',
+                year: '2025',
+                price: '550',
+                type: 'SUV',
+                fuel: 'Petrol',
+                transmission: 'Automatic',
+                images: ['img/Volkswagen T-Roc 2024.jpg']
+            },
+            'kia-sportage': {
+                name: 'Kia Sportage',
+                year: '2025',
+                price: '380',
+                type: 'SUV',
+                fuel: 'Petrol',
+                transmission: 'Automatic',
+                images: ['img/Kia Sportage 2023.jpg']
+            },
+            'vw-touareg': {
+                name: 'Volkswagen Touareg',
+                year: '2025',
+                price: '450',
+                type: 'SUV',
+                fuel: 'Diesel',
+                transmission: 'Automatic',
+                images: ['img/Volkswagen Touareg 2024.jpeg']
+            }
+        };
+
+        // Update page content based on car
+        if (carId && cars[carId]) {
+            const car = cars[carId];
+            document.title = `${car.name} - ETTAAJ LUXURY RENTAL`;
+            document.getElementById('car-name').textContent = car.name;
+            document.getElementById('car-year-main').textContent = car.year;
+            document.getElementById('car-year-feature').textContent = car.year;
+            document.getElementById('car-price').textContent = `${car.price} MAD/day`;
+            document.getElementById('car-type').textContent = car.type;
+            document.getElementById('car-fuel').textContent = car.fuel;
+            document.getElementById('car-transmission').textContent = car.transmission;
+            
+            const mainImage = document.getElementById('main-car-image');
+            mainImage.src = car.images[0];
+            mainImage.alt = car.name;
+
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            car.images.forEach((image, index) => {
+                if (thumbnails[index]) {
+                    thumbnails[index].src = image;
+                    thumbnails[index].alt = `${car.name} - View ${index + 1}`;
+                }
+            });
+        }
+
+        // Handle form submission
+        document.getElementById('booking-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                pickupDate: document.getElementById('pickup-date').value,
+                pickupLocation: document.getElementById('pickup-location').value,
+                returnDate: document.getElementById('return-date').value,
+                message: document.getElementById('message').value,
+                car: carId ? cars[carId].name : 'Unknown Car'
+            };
+
+            // Create WhatsApp message
+            const whatsappMessage = `New Car Booking Request:
+Car: ${formData.car}
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Pickup Date: ${formData.pickupDate}
+Pickup Location: ${formData.pickupLocation}
+Return Date: ${formData.returnDate}
+Additional Notes: ${formData.message}`;
+
+            // Encode message for WhatsApp URL
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+            
+            // Open WhatsApp with the message
+            window.open(`https://wa.me/212653330752?text=${encodedMessage}`, '_blank');
+        });
+    </script>
+</body>
+</html> 
