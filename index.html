@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETTAAJ RENT CAR </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container" >
+            <img src="img/logo Ettaj.jpg" alt="ETTAAJ RENT CAR">
+            <a href="index.html" class="logo">ETTAAJ RENT CAR </a>
+
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+                <div class="section_pages" id="sidebar">
+                    <a href="#carsContainer" data-translate="services">Fleets</a>
+                    <a href="#about" data-translate="about">About</a>
+                    <a href="#footer" data-translate="contact">Contact</a>
+                    <a href="blog.html" data-translate="contact">Marrakech</a>
+                </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>ETTAAJ RENT CAR </h1>
+            <p>Experience luxury and comfort with our premium fleet. Find the perfect car for your journey.</p>
+            <a href="#cars" class="btn">View Our Fleet</a>
+        </div>
+    </section>
+
+    <div class="container" id="cars">
+        <h2 class="section-title">Our Premium Fleet</h2>
+        
+        <div class="filters">
+            <div class="filter-group">
+                <label for="sort">Sort by:</label>
+                <select id="sort">
+                    <option value="name">Name</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="transmission">Transmission:</label>
+                <select id="transmission">
+                    <option value="all">All</option>
+                    <option value="Automatic">Automatic</option>
+                    <option value="Manual">Manual</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="fuel">Fuel Type:</label>
+                <select id="fuel">
+                    <option value="all">All</option>
+                    <option value="Petrol">Petrol</option>
+                    <option value="Diesel">Diesel</option>
+                    <option value="Hybrid">Hybrid</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label>Currency:</label>
+                <div class="currency-selector">
+                    <button class="currency-btn active" data-currency="mad">MAD</button>
+                    <button class="currency-btn" data-currency="usd">USD</button>
+                    <button class="currency-btn" data-currency="eur">EUR</button>
+                </div>
+            </div>
+            
+            <div class="filter-group">
+                <label>Language:</label>
+                <div class="language-selector">
+                    <button class="language-btn active" data-lang="en">EN</button>
+                    <button class="language-btn" data-lang="fr">FR</button>
+                    <button class="language-btn" data-lang="ar">AR</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cars-grid" id="carsContainer">
+            <!-- Cars will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 class="section-title">About ETTAAJ RENT CAR</h2>
+            <p class="about-description">
+            At <strong>ETTAAJ RENT CAR</strong>, we provide premium and luxury car rental services in Marrakech and across Morocco.
+            Whether you're arriving at the airport or exploring the city, our fleet of high-end vehicles guarantees comfort, style, and performance.
+            </p>
+            <p class="about-description">
+            We pride ourselves on our 24/7 customer service, competitive rates, and seamless booking experience via WhatsApp or our website.
+            Choose ETTAAJ for an unforgettable driving experience.
+            </p>
+            <a href="#fleet" class="about-btn">Explore Our Cars</a>
+        </div>
+    </section>
+
+    
+    <footer>
+        <div class="footer-container" id="footer">
+            <div class="footer-col">
+                <h3>Premium Rentals</h3>
+                <p>Your premium car rental service, offering luxury and comfort for all your journeys.</p>
+                <div class="social-links">
+                    <a href="https://api.whatsapp.com/message/REJI2RTB4HCKN1?autoload=1&app_absent=0" target="_blank"><i class="fab fa-whatsapp"></i></a>                   
+                    <a href="https://l.instagram.com/?u=https%3A%2F%2Fsnapchat.com%2Ft%2FowGiYTCd%3Ffbclid%3DPAZXh0bgNhZW0CMTEAAaf0bSfxUv09C6R4ne5e9GXRLX96xJiLSiolINTfnZMucGt9Z2tX4wTqo0cHBA_aem_g0Tjw3hOgAFCIuypyn66FQ&e=AT1f5cG_S7DPqIfxora7y2FPMx8OXr4vz645P9AqKxC6Z-X5seYAF0tS4LRJNzhqK_5Vnx0ZdISTXqHQn7Em__0ppBaUeRxRi0qV0PM" target="_blank"><i class="fab fa-snapchat"></i></a>
+                    <a href="https://www.instagram.com/ettaaj.rentcars/" target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+
+            
+            <div class="footer-col">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li><a href="https://maps.app.goo.gl/7f365jQbqfRbwJJB7"><i class="fas fa-map-marker-alt"></i> Morocco Casablanca, Marrakech</li></a>
+                    <li><a href="https://api.whatsapp.com/message/REJI2RTB4HCKN1?autoload=1&app_absent=0"><i class="fas fa-phone"></i> +212 772331080</li></a>
+                </ul>
+            </div>
+            
+            
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2025 ETTAAJ RENT CAR . All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+
+</body>
+</html>

@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation Form</title>
+    <style>
+        :root {
+            --primary-color: #FFB22C;
+            --secondary-color: #000000;
+            --therde:#854836;
+            --text-color: #F7F7F7;
+            --light-bg: #353333;
+            --shadow: 0 5px 15px rgba(246, 176, 0, 0.496);
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: var(--light-bg);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow:  0 5px 15px rgba(246, 176, 0, 0.496);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: var(--therde);
+            color: var(--text-color);
+        }
+        .booking-layout {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        .car-details {
+            flex: 1;
+            min-width: 300px;
+            margin-bottom: 20px;
+            border: 1px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px;
+        }
+        .car-details img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .booking-form {
+            flex: 1;
+            min-width: 300px;
+        }
+        .feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .feature i {
+            margin-right: 10px;
+            color: #f5a623;
+            width: 20px;
+        }
+        .price-info {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #f5a623;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .error-message {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+        @media (max-width: 768px) {
+            .booking-layout {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="nav-container" >
+            <img src="img/logo Ettaj.jpg" alt="ETTAAJ RENT CAR">
+            <a href="index.html" class="logo">ETTAAJ RENT CAR </a>
+
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+                <div class="section_pages" id="sidebar">
+                    <a href="#carsContainer" data-translate="services">Fleets</a>
+                    <a href="#about" data-translate="about">About</a>
+                    <a href="#footer" data-translate="contact">Contact</a>
+                    <a href="blog.html" data-translate="contact">Marrakech</a>
+                </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Cars</a>
+        
+        <div id="errorMessage" style="display: none;" class="error-message">
+            Car not found. Please go back and select a valid car.
+        </div>
+        
+        <div id="bookingContent">
+            <h2>Reservation for <span id="carName"></span></h2>
+            
+            <div class="booking-layout">
+                <!-- Car Details -->
+                <div class="car-details">
+                    <img id="carImage" src="" alt="Car Image">
+                    <h3 id="carTitle"></h3>
+                    
+                    <div class="feature">
+                        <i class="fas fa-user"></i>
+                        <span><strong>Seats:</strong> <span id="carSeats"></span></span>
+                    </div>
+                    
+                    <div class="feature">
+                        <i class="fas fa-suitcase"></i>
+                        <span><strong>Luggage:</strong> <span id="carLuggage"></span></span>
+                    </div>
+                    
+                    <div class="feature">
+                        <i class="fas fa-cog"></i>
+                        <span><strong>Transmission:</strong> <span id="carTransmission"></span></span>
+                    </div>
+                    
+                    <div class="feature">
+                        <i class="fas fa-gas-pump"></i>
+                        <span><strong>Fuel Type:</strong> <span id="carFuel"></span></span>
+                    </div>
+                    
+                    <div class="price-info">
+                        <h4>Pricing Options</h4>
+                        <div class="feature">
+                            <i class="fas fa-calendar-day"></i>
+                            <span><strong>Daily:</strong> <span id="priceDay"></span></span>
+                        </div>
+                        
+                        <div class="feature">
+                            <i class="fas fa-calendar-week"></i>
+                            <span><strong>Weekly:</strong> <span id="priceWeek"></span></span>
+                        </div>
+                        
+                        <div class="feature">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span><strong>Monthly:</strong> <span id="priceMonth"></span></span>
+                        </div>
+                    </div>
+
+            <div class="filter-group">
+                <label>Currency:</label>
+                <div class="currency-selector">
+                    <button class="currency-btn active" data-currency="mad">MAD</button>
+                    <button class="currency-btn" data-currency="usd">USD</button>
+                    <button class="currency-btn" data-currency="eur">EUR</button>
+                </div>
+            </div>
+
+
+                </div>
+                
+                <!-- Booking Form -->
+                <div class="booking-form">
+                    <h3>Enter Your Details</h3>
+                    <form id="bookingForm" action="submitBooking.php" method="post">
+                        <input type="hidden" name="carId" id="carId" value="">
+                        
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="pickup">Pick-up Date</label>
+                            <input type="date" id="pickup" name="pickup" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="dropoff">Drop-off Date</label>
+                            <input type="date" id="dropoff" name="dropoff" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="duration">Rental Duration</label>
+                            <select id="duration" name="duration">
+                                <option value="day">Daily</option>
+                                <option value="week">Weekly</option>
+                                <option value="month">Monthly</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Special Requests</label>
+                            <textarea id="message" name="message" rows="4"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn">Submit Reservation</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Complete car data matching the main script.js
+        const carData = { 
+            "Volkswagen-Touareg": {
+                    id:"Volkswagen Touareg",
+                    name: "Volkswagen Touareg",
+                    seats: 5,
+                    transmission: "Automatic",
+                    fuel: "Diesel",
+                    luggage: "4 large bags",
+                    prices: {
+                    day: 1200,
+                    week: 7500,
+                    month: 30000
+                    },
+                    img: "img/VolkswagenTouareg.jpg"
+            },
+            "Volkswagen-T-Roc": {
+                    name: "Volkswagen T-Roc",
+                    seats: 5,
+                    transmission: "Automatic",
+                    fuel: "Diesel",
+                    luggage: "3 large bags",
+                    prices: {
+                    day: 800,
+                    week: 4900,
+                    month: 18600
+                    },
+                    img: "img/Volkswagen T-Roc.jpg"
+            },
+            "Volkswagen-Golf-8": {
+                    name: "Volkswagen Golf 8",
+                    seats: 5,
+                    transmission: "Automatic",
+                    fuel: "Petrol",
+                    luggage: "2 large bags",
+                    prices: {
+                    day: 800,
+                    week: 5500,
+                    month: 21000
+                    },
+                    img: "img/Volkswagen Golf 8.jpg"
+            },
+            "Volkswagen-Golf-7-R": {
+                    name: "Volkswagen Golf 7 R",
+                    seats: 5,
+                    transmission: "Automatic",
+                    fuel: "Petrol",
+                    luggage: "2 large bags",
+                    prices: {
+                    day: 800,
+                    week: 5500,
+                    month: 21000
+                    },
+                    img: "img/Volkswagen Golf 7 R.jpg"
+            },
+            "Toyota-Land-Cruiser": {
+                    name: "Toyota Land Cruiser",
+                    seats: 7,
+                    transmission: "Automatic",
+                    fuel: "Diesel",
+                    luggage: "4 large bags",
+                    prices: {
+                    day: 2500,
+                    week: 16800,
+                    month: 68200
+                    },
+                    img: "img/Toyota Land Cruiser.jpg"
+            },
+            "Cupra-Leon": {
+                    name: "Cupra Leon",
+                    seats: 5,
+                    transmission: "Automatic",
+                    fuel: "Diesel",
+                    luggage: "3 large bags",
+                    prices: {
+                    day: 900,
+                    week: 6300,
+                    month: 24000
+                    },
+                    img: "img/Cupra Leon.jpg"
+            },
+            "Renault-Mégane 4": {
+                    name: "Renault Mégane 4",
+                    seats: 5,
+                    transmission: "Automatic",
+                    fuel: "Diesel",
+                    luggage: "2 large bags",
+                    prices: {
+                    day: 600,
+                    week: 3500,
+                    month: 13500
+                    },
+                    img: "img/Renault Mégane 4.jpg"
+            },
+            "Renault-Clio-5-Alpine": {
+                    name: "Renault Clio 5 Alpine",
+                    seats: 5,
+                    transmission: "Automatic",
+                    fuel: "Diesel",
+                    luggage: "2 large bags",
+                    prices: {
+                    day: 550,
+                    week: 3500,
+                    month: 12400
+                    },
+                    img: "img/Renault Clio 5 Alpine.jpg"
+            },
+            "Renault-Clio-5": {
+                    name: "Renault Clio 5",
+                    seats: 5,
+                    transmission: "Manual",
+                    fuel: "Diesel",
+                    luggage: "2 large bags",
+                    prices: {
+                    day: 400,
+                    week: 2450,
+                    month: 9300
+                    },
+                    img: "img/Renault Clio 5.jpg"
+            },
+            "Renault-Arkana": {
+                    name: "Renault Arkana",
+                    seats: 5,
+                    transmission: "Automatic",
+                    fuel: "Petrol",
+                    luggage: "3 large bags",
+                    prices: {
+                    day: 600,
+                    week: 3850,
+                    month: 14500
+                    },
+                    img: "img/Renault Arkana.jpg"
+            },
+            "Range-Rover-Vogue": {
+                    name: "Range Rover Vogue",
+                    seats: 5,
+                    transmission: "Automatic",
+                    fuel: "Hybrid",
+                    luggage: "5 large bags",
+                    prices: {
+                    day: 5000,
+                    week: 28000,
+                    month: 120000
+                    },
+                    img: "img/Range Rover Vogue.jpg"
+            },
+            "Range-Rover-Sport": {
+                    name: "Range Rover Sport",
+                    seats: 5,
+                    transmission: "Automatic",
+                    fuel: "Hybrid",
+                    luggage: "4 large bags",
+                    prices: {
+                    day: 4000,
+                    week: 27000,
+                    month: 105000
+                    },
+                    img: "img/Range Rover Sport.jpg"
+            }
+        };
+
+//currency and language 
+
+// Language and currency selection functionality
+document.addEventListener('DOMContentLoaded', () => {
+    let currentCurrency = 'mad';
+    let currentLanguage = 'en';
+    let currentCar = null;
+    
+    // Get references to currency buttons
+    const currencyButtons = document.querySelectorAll('.currency-btn');
+    
+    // Currency button click event
+    currencyButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            currencyButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Update currency
+            currentCurrency = this.getAttribute('data-currency');
+            
+            // If we have car data loaded, update prices
+            if (currentCar) {
+                updatePrices(currentCar, currentCurrency);
+            }
+        });
+    });
+    
+    // Add language selector to the page
+    const containerElement = document.querySelector('.container');
+    const languageSelector = document.createElement('div');
+    languageSelector.className = 'language-selector';
+    languageSelector.innerHTML = `
+        <div class="language-buttons" style="margin:30px 70px">
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="fr">FR</button>
+            <button class="lang-btn" data-lang="ar">AR</button>
+        </div>
+    `;
+    
+    // Insert language selector at the top of container
+    containerElement.insertBefore(languageSelector, containerElement.firstChild);
+    
+    // Add CSS for language selector
+    const styleElement = document.createElement('style');
+    styleElement.textContent = `
+        .language-selector {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 15px;
+        }
+        .language-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .lang-btn, .currency-btn {
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        .lang-btn.active, .currency-btn.active {
+            background-color: #f5a623;
+            color: white;
+            border-color: #f5a623;
+        }
+        .currency-selector {
+            display: flex;
+            gap: 10px;
+        }
+    `;
+    document.head.appendChild(styleElement);
+    
+    // Get references to language buttons
+    const languageButtons = document.querySelectorAll('.lang-btn');
+    
+    // Language button click event
+    languageButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            languageButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Update language
+            currentLanguage = this.getAttribute('data-lang');
+            
+            // Update page text
+            updateLanguage(currentLanguage);
+        });
+    });
+    
+    // Define translations
+    const translations = {
+        'en': {
+            'backToCars': 'Back to Cars',
+            'reservationFor': 'Reservation for',
+            'seats': 'Seats',
+            'luggage': 'Luggage',
+            'transmission': 'Transmission',
+            'fuelType': 'Fuel Type',
+            'pricingOptions': 'Pricing Options',
+            'daily': 'Daily',
+            'weekly': 'Weekly',
+            'monthly': 'Monthly',
+            'currency': 'Currency',
+            'enterYourDetails': 'Enter Your Details',
+            'fullName': 'Full Name',
+            'emailAddress': 'Email Address',
+            'phoneNumber': 'Phone Number',
+            'pickupDate': 'Pick-up Date',
+            'dropoffDate': 'Drop-off Date',
+            'rentalDuration': 'Rental Duration',
+            'specialRequests': 'Special Requests',
+            'submitReservation': 'Submit Reservation',
+            'errorMessage': 'Car not found. Please go back and select a valid car.'
+        },
+        'fr': {
+            'backToCars': 'Retour aux voitures',
+            'reservationFor': 'Réservation pour',
+            'seats': 'Sièges',
+            'luggage': 'Bagages',
+            'transmission': 'Transmission',
+            'fuelType': 'Type de carburant',
+            'pricingOptions': 'Options de prix',
+            'daily': 'Journalier',
+            'weekly': 'Hebdomadaire',
+            'monthly': 'Mensuel',
+            'currency': 'Devise',
+            'enterYourDetails': 'Entrez vos coordonnées',
+            'fullName': 'Nom complet',
+            'emailAddress': 'Adresse e-mail',
+            'phoneNumber': 'Numéro de téléphone',
+            'pickupDate': 'Date de prise en charge',
+            'dropoffDate': 'Date de retour',
+            'rentalDuration': 'Durée de location',
+            'specialRequests': 'Demandes spéciales',
+            'submitReservation': 'Soumettre la réservation',
+            'errorMessage': 'Voiture non trouvée. Veuillez revenir en arrière et sélectionner une voiture valide.'
+        },
+        'ar': {
+            'backToCars': 'العودة إلى السيارات',
+            'reservationFor': 'حجز لسيارة',
+            'seats': 'المقاعد',
+            'luggage': 'الأمتعة',
+            'transmission': 'ناقل الحركة',
+            'fuelType': 'نوع الوقود',
+            'pricingOptions': 'خيارات التسعير',
+            'daily': 'يومي',
+            'weekly': 'أسبوعي',
+            'monthly': 'شهري',
+            'currency': 'العملة',
+            'enterYourDetails': 'أدخل بياناتك',
+            'fullName': 'الاسم الكامل',
+            'emailAddress': 'البريد الإلكتروني',
+            'phoneNumber': 'رقم الهاتف',
+            'pickupDate': 'تاريخ الاستلام',
+            'dropoffDate': 'تاريخ التسليم',
+            'rentalDuration': 'مدة الإيجار',
+            'specialRequests': 'طلبات خاصة',
+            'submitReservation': 'تأكيد الحجز',
+            'errorMessage': 'السيارة غير موجودة. يرجى العودة واختيار سيارة صالحة.'
+        }
+    };
+    
+    // Update text elements based on selected language
+    function updateLanguage(lang) {
+        // Set direction for Arabic
+        document.body.style.direction = lang === 'ar' ? 'rtl' : 'ltr';
+        
+        // Update text elements
+        document.querySelector('.back-link').innerHTML = `<i class="fas fa-arrow-left"></i> ${translations[lang]['backToCars']}`;
+        document.querySelector('.error-message').textContent = translations[lang]['errorMessage'];
+        
+        // Heading for reservation
+        const carName = document.getElementById('carName').textContent;
+        document.querySelector('h2').innerHTML = `${translations[lang]['reservationFor']} <span id="carName">${carName}</span>`;
+        
+        // Car details
+        document.querySelectorAll('.feature').forEach(feature => {
+            const strongTag = feature.querySelector('strong');
+            if (strongTag) {
+                const key = strongTag.textContent.replace(':', '').trim().toLowerCase();
+                if (key === 'seats') strongTag.textContent = `${translations[lang]['seats']}:`;
+                if (key === 'luggage') strongTag.textContent = `${translations[lang]['luggage']}:`;
+                if (key === 'transmission') strongTag.textContent = `${translations[lang]['transmission']}:`;
+                if (key === 'fuel type') strongTag.textContent = `${translations[lang]['fuelType']}:`;
+                if (key === 'daily') strongTag.textContent = `${translations[lang]['daily']}:`;
+                if (key === 'weekly') strongTag.textContent = `${translations[lang]['weekly']}:`;
+                if (key === 'monthly') strongTag.textContent = `${translations[lang]['monthly']}:`;
+            }
+        });
+        
+        // Price heading
+        document.querySelector('.price-info h4').textContent = translations[lang]['pricingOptions'];
+        
+        // Currency label  
+        document.querySelector('.filter-group label').textContent = translations[lang]['currency'] + ':';
+        
+        // Form section
+        document.querySelector('.booking-form h3').textContent = translations[lang]['enterYourDetails'];
+        
+        // Form labels
+        const labels = document.querySelectorAll('.form-group label');
+        labels.forEach(label => {
+            const forAttr = label.getAttribute('for');
+            if (forAttr === 'name') label.textContent = translations[lang]['fullName'];
+            if (forAttr === 'email') label.textContent = translations[lang]['emailAddress'];
+            if (forAttr === 'phone') label.textContent = translations[lang]['phoneNumber'];
+            if (forAttr === 'pickup') label.textContent = translations[lang]['pickupDate'];
+            if (forAttr === 'dropoff') label.textContent = translations[lang]['dropoffDate'];
+            if (forAttr === 'duration') label.textContent = translations[lang]['rentalDuration'];
+            if (forAttr === 'message') label.textContent = translations[lang]['specialRequests'];
+        });
+        
+        // Duration options
+        const durationOptions = document.querySelectorAll('#duration option');
+        durationOptions.forEach(option => {
+            if (option.value === 'day') option.textContent = translations[lang]['daily'];
+            if (option.value === 'week') option.textContent = translations[lang]['weekly'];
+            if (option.value === 'month') option.textContent = translations[lang]['monthly'];
+        });
+        
+        // Submit button
+        document.querySelector('button[type="submit"]').textContent = translations[lang]['submitReservation'];
+    }
+    
+    // Override the original loadCarData function to capture the car data
+    const originalLoadCarData = window.loadCarData;
+    window.loadCarData = function() {
+        originalLoadCarData();
+        
+        // Get the car data after original function runs
+        const urlParams = new URLSearchParams(window.location.search);
+        const carId = urlParams.get('carId');
+        
+        if (carId) {
+            // Find the car
+            for (const key in carData) {
+                if (
+                    carData[key].name === carId || 
+                    carData[key].name.replace(/\s+/g, '-') === carId ||
+                    carData[key].name.toLowerCase() === carId.toLowerCase() ||
+                    key.toLowerCase() === carId.toLowerCase() ||
+                    key.replace(/-/g, ' ').toLowerCase() === carId.toLowerCase()
+                ) {
+                    currentCar = carData[key];
+                    break;
+                }
+            }
+        }
+    };
+    
+    // Override the original updatePrices function
+    window.updatePrices = function(car, currency) {
+        document.getElementById('priceDay').textContent = formatCurrency(car.prices.day, currency);
+        document.getElementById('priceWeek').textContent = formatCurrency(car.prices.week, currency);
+        document.getElementById('priceMonth').textContent = formatCurrency(car.prices.month, currency);
+    };
+});
+
+
+
+// تهيئة تواريخ الاستلام والتسليم (بدون تغيير)
+function initializeDates() {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    
+    const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+    
+    document.getElementById('pickup').min = formatDate(today);
+    document.getElementById('pickup').value = formatDate(today);
+    
+    document.getElementById('dropoff').min = formatDate(tomorrow);
+    document.getElementById('dropoff').value = formatDate(tomorrow);
+}
+
+// تحديث مدة الإيجار (بدون تغيير)
+function updateDuration() {
+    const pickupDate = new Date(document.getElementById('pickup').value);
+    const dropoffDate = new Date(document.getElementById('dropoff').value);
+    
+    const diffTime = Math.abs(dropoffDate - pickupDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    const durationSelect = document.getElementById('duration');
+    
+    if (diffDays >= 30) {
+        durationSelect.value = 'month';
+    } else if (diffDays >= 7) {
+        durationSelect.value = 'week';
+    } else {
+        durationSelect.value = 'day';
+    }
+}
+
+// دالة جديدة لتحديث الأسعار بناءً على العملة
+function updatePrices(car, currency) {
+    document.getElementById('priceDay').textContent = formatCurrency(car.prices.day, currency);
+    document.getElementById('priceWeek').textContent = formatCurrency(car.prices.week, currency);
+    document.getElementById('priceMonth').textContent = formatCurrency(car.prices.month, currency);
+}
+
+// تحميل بيانات السيارة (محدثة لدعم العملة)
+function loadCarData() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const carId = urlParams.get('carId');
+    
+    console.log("Looking for car with ID:", carId);
+    
+    if (!carId) {
+        document.getElementById('bookingContent').style.display = 'none';
+        document.getElementById('errorMessage').style.display = 'block';
+        return;
+    }
+    
+    const normalizedCarId = carId
+        .replace(/\s+/g, '-')
+        .replace(/é/g, 'e')
+        .replace(/è/g, 'e')
+        .replace(/ç/g, 'c');
+        
+    console.log("Normalized carId:", normalizedCarId);
+    
+    let car = null;
+    
+    if (carData[carId]) {
+        car = carData[carId];
+        console.log("Found car by exact match");
+    } else if (carData[normalizedCarId]) {
+        car = carData[normalizedCarId];
+        console.log("Found car by normalized ID");
+    } else {
+        for (const key in carData) {
+            const currentCar = carData[key];
+            if (
+                currentCar.name === carId || 
+                currentCar.name.replace(/\s+/g, '-') === carId ||
+                currentCar.name.toLowerCase() === carId.toLowerCase() ||
+                key.toLowerCase() === carId.toLowerCase() ||
+                key.replace(/-/g, ' ').toLowerCase() === carId.toLowerCase()
+            ) {
+                car = currentCar;
+                console.log("Found car by name comparison:", key);
+                break;
+            }
+        }
+    }
+
+    if (car) {
+        document.getElementById('bookingContent').style.display = 'block';
+        document.getElementById('errorMessage').style.display = 'none';
+        
+        document.getElementById('carId').value = car.id;
+        document.getElementById('carName').textContent = car.name;
+        document.getElementById('carTitle').textContent = car.name;
+        document.getElementById('carImage').src = car.img;
+        document.getElementById('carImage').alt = car.name;
+        document.getElementById('carSeats').textContent = car.seats;
+        document.getElementById('carLuggage').textContent = car.luggage;
+        document.getElementById('carTransmission').textContent = car.transmission;
+        document.getElementById('carFuel').textContent = car.fuel;
+        
+        // تحديث الأسعار بالعملة الافتراضية (MAD)
+        updatePrices(car, 'mad');
+        
+        document.title = `Book ${car.name} - Premium Car Rental`;
+        
+        // إضافة مستمع حدث لتغيير العملة
+        document.getElementById('currency').addEventListener('change', function() {
+            const selectedCurrency = this.value;
+            updatePrices(car, selectedCurrency);
+        });
+    } else {
+        console.error("Car not found with ID:", carId);
+        document.getElementById('bookingContent').style.display = 'none';
+        document.getElementById('errorMessage').style.display = 'block';
+    }
+}
+
+
+        // Format currency
+        function formatCurrency(amount, currency = 'mad') {
+            const exchangeRates = {
+                mad: 1,
+                usd: 0.1, 
+                eur: 0.09
+            };
+            
+            const convertedAmount = amount * exchangeRates[currency];
+            
+            switch(currency) {
+                case 'usd':
+                    return `$${convertedAmount.toFixed(0)}`;
+                case 'eur':
+                    return `€${convertedAmount.toFixed(0)}`;
+                default:
+                    return `${convertedAmount.toFixed(0)} MAD`;
+            }
+        }
+
+        // Initialize date inputs with today and tomorrow
+        function initializeDates() {
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            
+            const formatDate = (date) => {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            };
+            
+            document.getElementById('pickup').min = formatDate(today);
+            document.getElementById('pickup').value = formatDate(today);
+            
+            document.getElementById('dropoff').min = formatDate(tomorrow);
+            document.getElementById('dropoff').value = formatDate(tomorrow);
+        }
+
+        // Calculate rental duration and update form
+        function updateDuration() {
+            const pickupDate = new Date(document.getElementById('pickup').value);
+            const dropoffDate = new Date(document.getElementById('dropoff').value);
+            
+            // Calculate the difference in days
+            const diffTime = Math.abs(dropoffDate - pickupDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            const durationSelect = document.getElementById('duration');
+            
+            // Set appropriate duration based on number of days
+            if (diffDays >= 30) {
+                durationSelect.value = 'month';
+            } else if (diffDays >= 7) {
+                durationSelect.value = 'week';
+            } else {
+                durationSelect.value = 'day';
+            }
+        }
+
+        // Load car data and fill the form
+        function loadCarData() {
+            // Get carId from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const carId = urlParams.get('carId');
+            
+            console.log("Looking for car with ID:", carId);
+            
+            if (!carId) {
+                // Handle case when no carId is provided
+                document.getElementById('bookingContent').style.display = 'none';
+                document.getElementById('errorMessage').style.display = 'block';
+                return;
+            }
+            
+            // Process the carId to handle special characters and spaces
+            const normalizedCarId = carId
+                .replace(/\s+/g, '-')        // Replace spaces with hyphens
+                .replace(/é/g, 'e')          // Replace é with e
+                .replace(/è/g, 'e')          // Replace è with e
+                .replace(/ç/g, 'c');         // Replace ç with c
+                
+            console.log("Normalized carId:", normalizedCarId);
+            
+            // Find the car in carData
+            let car = null;
+            
+            // Try direct match first
+            if (carData[carId]) {
+                car = carData[carId];
+                console.log("Found car by exact match");
+            } 
+            // Try with normalized ID
+            else if (carData[normalizedCarId]) {
+                car = carData[normalizedCarId];
+                console.log("Found car by normalized ID");
+            } 
+            // Try to search by other methods
+            else {
+                // Search through all cars for a matching name or id
+                for (const key in carData) {
+                    const currentCar = carData[key];
+                    
+                    // Check various forms of the car's name/id
+                    if (
+                        currentCar.name === carId || 
+                        currentCar.name.replace(/\s+/g, '-') === carId ||
+                        currentCar.name.toLowerCase() === carId.toLowerCase() ||
+                        key.toLowerCase() === carId.toLowerCase() ||
+                        key.replace(/-/g, ' ').toLowerCase() === carId.toLowerCase()
+                    ) {
+                        car = currentCar;
+                        console.log("Found car by name comparison:", key);
+                        break;
+                    }
+                }
+            }
+
+            if (car) {
+                // Populate the form with car details
+                document.getElementById('bookingContent').style.display = 'block';
+                document.getElementById('errorMessage').style.display = 'none';
+                
+                document.getElementById('carId').value = car.id;
+                document.getElementById('carName').textContent = car.name;
+                document.getElementById('carTitle').textContent = car.name;
+                document.getElementById('carImage').src = car.img;
+                document.getElementById('carImage').alt = car.name;
+                document.getElementById('carSeats').textContent = car.seats;
+                document.getElementById('carLuggage').textContent = car.luggage;
+                document.getElementById('carTransmission').textContent = car.transmission;
+                document.getElementById('carFuel').textContent = car.fuel;
+                
+                // Format prices
+                document.getElementById('priceDay').textContent = formatCurrency(car.prices.day);
+                document.getElementById('priceWeek').textContent = formatCurrency(car.prices.week);
+                document.getElementById('priceMonth').textContent = formatCurrency(car.prices.month);
+                
+                // Set title
+                document.title = `Book ${car.name} - Premium Car Rental`;
+                
+            } else {
+                // Display error if car not found
+                console.error("Car not found with ID:", carId);
+                document.getElementById('bookingContent').style.display = 'none';
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        }
+
+        // Initialize page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCarData();
+            initializeDates();
+            
+            // Add event listeners for date changes
+            document.getElementById('pickup').addEventListener('change', (e) => {
+                // Ensure dropoff is not before pickup
+                const pickupDate = new Date(e.target.value);
+                const dropoffDate = new Date(document.getElementById('dropoff').value);
+                
+                if (dropoffDate <= pickupDate) {
+                    const nextDay = new Date(pickupDate);
+                    nextDay.setDate(nextDay.getDate() + 1);
+                    
+                    const year = nextDay.getFullYear();
+                    const month = String(nextDay.getMonth() + 1).padStart(2, '0');
+                    const day = String(nextDay.getDate()).padStart(2, '0');
+                    
+                    document.getElementById('dropoff').value = `${year}-${month}-${day}`;
+                }
+                
+                updateDuration();
+            });
+            
+            document.getElementById('dropoff').addEventListener('change', () => {
+                updateDuration();
+            });
+            
+            // Form validation and WhatsApp submission
+document.getElementById('bookingForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const pickup = document.getElementById('pickup').value;
+    const dropoff = document.getElementById('dropoff').value;
+    const duration = document.getElementById('duration').value;
+    const fullName = document.getElementById('name').value.trim();
+    const phoneNumber = document.getElementById('phone').value.trim();
+    const car = document.getElementById('carName').textContent;
+    const messageText = document.getElementById('message').value.trim();
+
+    if (!pickup || !dropoff || !duration || !fullName || !phoneNumber) {
+        alert('Please fill in all fields.');
+        return;
+    }
+
+    // إرسال رسالة واتساب
+const message = 
+`
+📌 *New Car Booking Request*
+
+🚗 *Car:* ${car}
+
+👤 *Name:* ${fullName}  
+📞 *Phone:* ${phoneNumber}
+
+📅 *Pick-up Date:* ${pickup}  
+📅 *Drop-off Date:* ${dropoff}  
+⏳ *Duration:* ${duration}
+
+📝 *Message:*  
+${messageText}
+
+📍 Sent via ETTAAJ Luxury Cars Booking Form`;    const encodedMessage = encodeURIComponent(message);
+    const whatsappURL = `https://wa.me/21277777777?text=${encodedMessage}`;
+    
+    window.location.href = whatsappURL;
+});
+
+            });
+
+    </script>
+</body>
+</html>
